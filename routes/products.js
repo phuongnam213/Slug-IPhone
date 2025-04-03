@@ -4,7 +4,6 @@ let productModel = require('../schemas/product');
 let CategoryModel = require('../schemas/category');
 const slugify = require('slugify');
 
-// Tạo query để tìm kiếm sản phẩm theo các điều kiện
 function buildQuery(obj) {
   let result = {};
   if (obj.name) {
@@ -29,7 +28,6 @@ function buildQuery(obj) {
   return result;
 }
 
-// Lấy tất cả sản phẩm
 router.get('/', async function (req, res, next) {
   let products = await productModel.find(buildQuery(req.query)).populate('category');
   res.status(200).send({
@@ -38,7 +36,6 @@ router.get('/', async function (req, res, next) {
   });
 });
 
-// Lấy sản phẩm theo ID
 router.get('/:id', async function (req, res, next) {
   try {
     let id = req.params.id;
@@ -55,7 +52,6 @@ router.get('/:id', async function (req, res, next) {
   }
 });
 
-// Tạo mới sản phẩm
 router.post('/', async function (req, res, next) {
   try {
     let cate = await CategoryModel.findOne({ name: req.body.category });
@@ -86,7 +82,6 @@ router.post('/', async function (req, res, next) {
   }
 });
 
-// Cập nhật sản phẩm
 router.put('/:id', async function (req, res, next) {
   try {
     let updateObj = {};
@@ -123,7 +118,6 @@ router.put('/:id', async function (req, res, next) {
   }
 });
 
-// Xóa sản phẩm (đánh dấu là đã xóa)
 router.delete('/:id', async function (req, res, next) {
   try {
     let product = await productModel.findById(req.params.id);
@@ -151,7 +145,6 @@ router.delete('/:id', async function (req, res, next) {
   }
 });
 
-// Lấy sản phẩm theo slug và category slug
 router.get('/slug/:category/:product', async function (req, res, next) {
   try {
     let categorySlug = req.params.category;
@@ -190,7 +183,6 @@ router.get('/slug/:category/:product', async function (req, res, next) {
   }
 });
 
-// Lấy tất cả sản phẩm trong category
 router.get('/slug/:category', async function (req, res, next) {
   try {
     let categorySlug = req.params.category;

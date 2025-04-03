@@ -3,7 +3,6 @@ var router = express.Router();
 let categoryModel = require('../schemas/category');
 const slugify = require('slugify');
 
-// Lấy tất cả danh mục
 router.get('/', async function (req, res, next) {
   try {
     let categories = await categoryModel.find({});
@@ -19,7 +18,6 @@ router.get('/', async function (req, res, next) {
   }
 });
 
-// Lấy danh mục theo ID
 router.get('/:id', async function (req, res, next) {
   try {
     let id = req.params.id;
@@ -43,7 +41,6 @@ router.get('/:id', async function (req, res, next) {
   }
 });
 
-// Tạo mới danh mục
 router.post('/', async function (req, res, next) {
   try {
     let newCategory = new categoryModel({
@@ -63,7 +60,6 @@ router.post('/', async function (req, res, next) {
   }
 });
 
-// Cập nhật danh mục
 router.put('/:id', async function (req, res, next) {
   try {
     let updateObj = {};

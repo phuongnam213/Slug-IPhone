@@ -20,7 +20,6 @@ let categorySchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Tạo slug tự động khi tạo hoặc cập nhật danh mục
 categorySchema.pre('save', function (next) {
     this.slug = slugify(this.name, { lower: true });
     next();
